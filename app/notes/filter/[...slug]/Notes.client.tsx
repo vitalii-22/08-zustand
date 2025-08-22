@@ -8,11 +8,10 @@ import css from "./page.module.css";
 import toast, { Toaster } from "react-hot-toast";
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
-import Modal from "@/components/Modal/Modal";
 import NoteList from "@/components/NoteList/NoteList";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import { Note } from "@/types/note";
 import { fetchNotes } from "@/lib/api";
+import Link from "next/link";
 
 interface FetchNotesResponse {
   notes: Note[];
@@ -28,10 +27,6 @@ function NotesClient({ initialData, tag }: NotesClientProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
   const { data, isSuccess } = useQuery({
     queryKey: ["notes", currentPage, searchQuery, tag],
@@ -75,18 +70,13 @@ function NotesClient({ initialData, tag }: NotesClientProps) {
               currentPage={currentPage}
             />
           )}
-          <button className={css.button} onClick={openModal}>
-            Create note +
-          </button>
+
+          <Link href="/notes/action/create">Create note</Link>
+  
         </header>
       </div>
       <Toaster position="top-right" />
       {isSuccess && data?.notes && <NoteList notes={data?.notes} />}
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm onClose={closeModal} />
-        </Modal>
-      )}
     </>
   );
 }

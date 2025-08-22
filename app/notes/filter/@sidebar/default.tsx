@@ -13,7 +13,6 @@ export const tags: string[] = [
 export default function SidebarNotes() {
   return (
     <>
-      <Link href="/notes/action/create">Create note</Link>
       <ul className={css.menuList}>
         {tags.map((tag) => (
           <li key={tag} className={css.menuItem}>

@@ -5,16 +5,15 @@ import css from "./CreateNote.module.css";
 //   children: React.ReactNode;
 // }
 
-export async function generateMetadata({ params }: NoteDetailsProps) {
-  const { id } = await params;
-  const note = await fetchNoteById(id);
+export async function generateMetadata() {
   return {
     title: "Create note",
     description: "Page for writing note",
+    https: "https://08-zustand-silk.vercel.app/notes/action/create",
     openGraph: {
-      title: ` ${note.title}`,
-      description: `${note.content}`,
-      url: "https://08-zustand-silk.vercel.app/",
+      title: "Create note",
+      description: "Page for writing note",
+      https: "https://08-zustand-silk.vercel.app/notes/action/create",
       images: [
         {
           url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",

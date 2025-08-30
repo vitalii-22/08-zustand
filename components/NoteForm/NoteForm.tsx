@@ -26,7 +26,7 @@ export default function NoteForm() {
     });
   };
 
-  const handleCancel = () => router.push("/notes/filter/all");
+  const handleCancel = () => router.push("/notes/filter/All");
 
   const { mutate } = useMutation({
     mutationFn: (noteData: NewNoteData) => createNote(noteData),
@@ -92,7 +92,11 @@ export default function NoteForm() {
         <button type="submit" className={css.submitButton}>
           Create note
         </button>
-        <button type="button" onClick={handleCancel}>
+        <button
+          type="button"
+          className={css.submitButton}
+          onClick={handleCancel}
+        >
           Cancel
         </button>
       </div>

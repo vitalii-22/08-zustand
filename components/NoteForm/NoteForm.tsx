@@ -1,7 +1,6 @@
 "use client";
 
 import { useId } from "react";
-import * as Yup from "yup";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import type { NewNoteData } from "../../types/note";
@@ -9,34 +8,10 @@ import { createNote } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import css from "./NoteForm.module.css";
 import { useNoteDraftStore } from "@/lib/store/noteStore";
-// interface NoteFormProps {
-// }
-
-// const OrderFormSchema = Yup.object().shape({
-//   title: Yup.string()
-//     .min(3, "Title must be at least 3 characters")
-//     .max(50, "Title is too long")
-//     .required("Title is required"),
-//   content: Yup.string().max(500, "Content is too long"),
-//   tag: Yup.string()
-//     .oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"])
-//     .required("Tag is required"),
-// });
-
-interface OrderFormValues {
-  title: string;
-  content: string;
-  tag: "Todo" | "Work" | "Personal" | "Meeting" | "Shopping";
-}
-
-const initialValues: OrderFormValues = {
-  title: "",
-  content: "",
-  tag: "Todo",
-};
 
 export default function NoteForm() {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const { draft, setDraft, clearDraft } = useNoteDraftStore();
 
@@ -57,6 +32,9 @@ export default function NoteForm() {
     mutationFn: (noteData: NewNoteData) => createNote(noteData),
     onSuccess: () => {
       clearDraft();
+      queryClient.invalidateQueries({
+        queryKey: ["notes"],
+      });
       router.push("/notes/filter/All");
     },
   });

@@ -1,30 +1,24 @@
 import NoteForm from "@/components/NoteForm/NoteForm";
 import css from "./CreateNote.module.css";
+import { Metadata } from "next";
 
-// interface CreateNoteProps {
-//   children: React.ReactNode;
-// }
-
-export async function generateMetadata() {
-  return {
+export const metadata: Metadata = {
+  title: "Create note",
+  description: "Page for writing note",
+  openGraph: {
     title: "Create note",
     description: "Page for writing note",
-    https: "https://08-zustand-silk.vercel.app/notes/action/create",
-    openGraph: {
-      title: "Create note",
-      description: "Page for writing note",
-      https: "https://08-zustand-silk.vercel.app/notes/action/create",
-      images: [
-        {
-          url: "https://ac.goit.global/fullstack/react/notehub-og-meta.jpg",
-          width: 1200,
-          height: 630,
-          alt: "Note hub image",
-        },
-      ],
-    },
-  };
-}
+    url: "https://08-zustand-silk.vercel.app/notes/action/create",
+    images: [
+      {
+        url: "https://08-zustand-silk.vercel.app/notes/action/create",
+        width: 1200,
+        height: 630,
+        alt: "Note hub image",
+      },
+    ],
+  },
+};
 
 export default function CreateNote() {
   return (
